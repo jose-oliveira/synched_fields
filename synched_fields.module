@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Allows field values to be synched through their children translations.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+* Implements hook_form_FORM_ID_alter() for 'field_config_edit_form'.
+*/
+function synched_fields_form_field_config_edit_form_alter(array &$form, FormStateInterface $form_state) {
+
+  $field = $form_state->getFormObject()->getEntity();
+  $bundle_is_translatable = \Drupal::service('content_translation.manager')->isEnabled($field->getTargetEntityTypeId(), $field->getTargetBundle());
+
+  // @TODO Allow synched fields to be added only in translatable bundles.
+  // @TODO Use more generic way to checked if field is synched.
+  if($field->getType() == 'synched_text_with_summary' && $bundle_is_translatable) {
+    $form['translatable']['#default_value'] = 1;
+    $form['translatable']['#disabled'] = 1;
+    $form['translatable']['#description'] = t('Synched fields always need to be translatable');
+  }
+}

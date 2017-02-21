@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Synched Fields module.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function synched_fields_install() {
+
+  // This module's hooks need to execute after Content Translation hooks.
+  // @TODO Use get_weight for content_translation module once this
+  // functionality is implemented: https://www.drupal.org/node/1808132
+  module_set_weight('synched_fields', 11);
+
+}

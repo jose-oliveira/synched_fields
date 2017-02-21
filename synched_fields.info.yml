@@ -1,0 +1,7 @@
+name: Synched Fields
+description: Defines fields that can be synched to children translations.
+type: module
+core: 8.x
+package: Multilingual
+dependencies:
+  - demo_language
